@@ -1,0 +1,174 @@
+Classes in Java
+- Concrete Class
+- Abstract Class
+- Super Class
+- Object Class
+- Nested Class
+    - Inner Class(Non Static Nested Class)
+    - Anonymous Inner Class
+    - Member Inner Class
+    - Local Inner Class
+    - Static Nested Class/ Static Class
+- Generic Class
+- POJO Class
+- Enum Class
+- Final Class
+- Singleton Class
+- Immutable Class
+- Wrapper Class
+
+1. Concrete Class
+- These are those classes that we can create an instance using NEW keyword
+- All the methods in this class have implementation
+- It can also be your child class from interface or extend abstract class
+- A class access modifier can be "public" or "protected" or "private"(no explicit modifier defined)
+
+2. Abstract Class(0 to 100% Abstraction)
+- Show only important features to users & hide its internal implementation
+- 2 ways of abstraction
+- Class is declared as abstracted through "abstract" keyword
+- It can have both abstract(method without body) & non-abstract methods
+- We cannot create an instance of this class
+- The parent has some feature which child classes have in common, then this can be used
+- Constructors can be created inside them and with super keyword from child classes we can access them.
+
+3. Super & Sub Class
+- A class that is derived from another class is called a subclass
+- And from class through which subclass is derived it's called superclass
+- In Java, in the absence of any other explicit superclass, every class is implicitly a subclass of
+object class.
+- Object is the topmost class in Java
+- It has some common methods like clone(), toString(), equals(), notify(), wait() etc...
+Note: In Java, we have object class as the default super class of any class
+
+4. Nested Class -> Static Nested Class
+-> Non-Static/ Inner Class
+    -> Local Inner Class
+    -> Member Inner Class
+    -> Anonymous Inner Class
+-> Class within another is called Nested Class
+
+ When to use?
+ - If you know that a class A will be used by only one another class B, then instead of created new
+ file(A.java) for it, we can create nested class inside B class itself
+ - It also helps us to group logically related classes in one file
+
+ - Scope - Its scope is same as of its outer class
+ - It is of 2 types:
+    - Static Nested Class
+    - Non-Static Nested Class
+        - Member Inner Class
+        - Local Inner Class
+        - Anonymous Inner Class
+
+ i. Static Nested Class
+ - It do not have access to non-static instance variable and method of outer class.
+ - Its object can be initiated without initiating the object of outer class
+ - It can be private, public, protected, or package default, no explicit declaration
+
+ ii. Inner or Non-Static Nested Class
+ - It has access to all the instance variable & method of outer class
+ - Its object can be initiated on after initiating the object of outer class
+
+    a. Member Inner Class
+        - it can be private, public, protected and default
+    b. Local Inner Class
+        - These are these classes which are defined in any block like for loop,
+        while loop block, if condition block, method etc.
+        - It cannot be declared as private, public, protected. Only default access modifier is used.
+
+Inheritance in Nested Class:
+Ex 1: One inner class inherit another inner class in same outer class
+Ex 2: Static Inner Class inherited by different class
+Ex 3: Non-Static Inner Class inherited by different class
+
+iii. Anonymous Inner Class
+- An inner class without a name called Anonymous class
+- Why is it used?
+- When we want to override the behaviour of the method without even creating any subclass
+- 2 things happened behind the scenes
+- Subclass in created, name decided by the compiler
+- Creates an object of subclass and assign its reference to object "audiCarObj"
+
+Similarly, for the interface also, it works in the same way
+final class Test$1 extends Car{
+    Test$1(){}
+    public void pressBreak(){
+
+    }
+}
+
+Generic Method
+- What if we want to make method generic, not the complete class, we can write Generic methods too.
+- Type Parameter should be before the return type of the method declaration.
+- Type Parameter scope is limited to method only.
+Raw Type - It's a name of the generic class or interface without any type argument
+
+Bounded Generics
+- It can be used at generic classes and method
+- Upper Bound(<T extends Number> means T can be of type Number or its subclasses only)
+Here superclass(in this example Number) we can have interface too.
+
+- MultiBound
+<T extends superclass & interface1 & interfaceN>
+- The first restrictive type should be concrete class
+- 2, 3 and so on... can be interfaces
+
+WildCards
+- Upper bounded wildcard: <? extends UpperBoundClassName> i.e. className and below
+- Lower Bound wildcard: <? super LowerBoundClassName> i.e. className and above
+- Unbounded wildcard: <?> only you can read
+
+//WildCard Method
+public void computeList(List<? extends Number> source, List<? extends Number> number){
+
+}
+
+//Generic Method
+public <T extends Number> void computeList1(List<T> source, List<T> destination){
+
+}
+
+//Why we need wildcard as we can achieve the same using the generic type method?
+->As wildcard method is not stick to only one type of data as compared to generic type
+where only one type of data can be taken.
+
+POJO Class
+- Stands for Plain Old Java Object
+- Contains variables and its getter and setter methods
+- Class should be public
+- public default constructor
+- No annotations should be used like @Table, @Entity, @Id etc...
+- It should not extract any class or implement any interface
+Client --Request--> Rest API Controllers --> Business Logic --> Repository --> POJO(Entity Objects)
+--Stored in--> DB(Database)
+
+ENUM Class
+- It has a collection of CONSTANTS(variables which values cannot be changed)
+- Its CONSTANTS are static and final implicitly(we do not have rto write it)
+- It cannot extend any class, as it internally extends java.lang.Enum class
+- It can implement interfaces
+- It can have variables, constructor, methods
+- It cannot be initiated(as its constructor will be private only, even you give default in bytecode
+it make it private)
+- No other class can extend Enum class
+- It can have abstract method, and all the constant should implement that abstract method.
+
+SingleTon Class
+- This class objective is to create 1 and only 1 object.
+- Different ways of creating singleton class:-
+- Eager Initialization
+- Lazy Initialization
+- Synchronization Block
+- Double Check Lock(there is a memory issue, resolved through volatile instance variable)
+- Bill Pugh Solution
+- Enum Singleton
+
+Immutable Class
+- We cannot change the value of an object once it is created.
+- Declare class as "final" so that it can not be extended.
+- All class members should be private, so that direct access can be avoided.
+- And class members are initialized only once using constructor
+- There should not be any setter methods, which is generally use to change the value.
+- Just getter methods and returns copy of the member variable.
+- Example: String, Wrapper Classes etc.

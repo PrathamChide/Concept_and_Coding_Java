@@ -1,0 +1,584 @@
+Java Collection Framework
+- Added in Java Version 1.2
+- Collections is nothing but a group of objects.
+- Present in java.util.package
+- Framework provide us the architecture to manage these "group of objects" i.e. add, update, delete, search, etc.
+- Why we need Java Collection Framework?
+- Prior to JCF, we have Array, Vector, HashTables
+- But problem with that is, there is no common interface, so it's difficult to remember the methods for each.
+
+Java Collections Framework Hierarchy
+[Iterable] <--extends-- [Collection] <--extends-- [List],[Queue],[Set] <--implements-- (LinkedList),(ArrayList),(Vector)
+(Priority Queue) --implements--> [Queue] <--extends-- [Deque] <--implements-- (ArrayDeque),(LinkedList)
+(Vector) <--extends-- (Stack)
+
+Iterable :- Used to TRAVERSE the collection
+1. Iterator - iterator() -> Available in Java1.5 -> It returns the Iterator object, which provide between methods to iterate
+the collection.
+hasNext() -> Returns true, if there are more elements in collection.
+next()-> Returns the next element in the iteration
+remove()-> Removes the last element returned by iterator
+2. forEach() -> Available in Java1.8 -> Iterate Collection using lambda expression. Lambda expression is called for each
+element of the collection.
+
+Collection: It represents the group of objects. It is an interface which provides methods to work on group of objects.
+- Below are the most common used methods which are implemented by its child classes like ArrayList, Stack, LinkedList, etc.
+
+Methods:->
+1. size() -> Java 1.2 -> It returns total number of elements in collection
+2. isEmpty() -> Java 1.2 -> Used to check if collection is empty or has some value. It returns true/false.
+3. contains() -> Java 1.2 -> Used to search and element in the collection, returns true/false.
+4. toArray() -> Java 1.2 -> It convert collection into an Array
+5. add() -> Java 1.2 -> Used to insert an element in the Collection
+6. remove() -> Java 1.2 -> Used to remove an element in the Collection
+7. addAll() -> Java 1.2 -> Used to insert one collection; which are present in the collection passed in the parameter
+8. removeAll() -> Java 1.2 -> Remove all elements from the collections, which are present in the collection passed in the parameter
+9. clear() -> Java 1.2 -> Remove all the elements from the collection
+10. equals() -> Java 1.2 -> Provide effective way to work with collection like filtering, processing data, etc.
+11. stream() or parallelstream() -> Java 1.8 -> Provide effective way to work with collection like filtering, processing data, etc.
+12. iterator() -> Java 1.2 -> As iterable interface added in Java 1.5, so before this, this method was used to iterate the collection and still can be used.
+
+Collection Vs Collections
+.Collection is a part of Java Collection Framework it's an interface, which expose various methods which is implemented by various collection classes like ArrayList,
+Stack, LinkedList etc.
+
+Collections is a Utility class and provide static methods, which are used to operate on collections like sorting, swapping, searching, reverse, copy etc.
+
+Methods
+sort, binarySearch, get, reverse, shuffle, swap, copy, min, max, rotate, unmodifiableCollection
+
+Queue
+- QUEUE is an Interface, child of Collection Interface.
+- Generally QUEUE follows FIFO approach, but there are expectations like PriorityQueue
+- Supports all the methods available in Collection + some methods mentioned below
+
+Methods Available in Queue Interface
+1. add() - Insert the element into the queue
+         - True if Insertion is Successful and Exception if Insertion fails
+         - Null element insertion is not allowed will throw NullPointerException(NPE)
+2. offer() - Insert the element into the queue
+           - True if Insertion is Successful and False if Insertion fails
+           - Null element insertion is not allowed will throw NullPointerException(NPE)
+3. poll() - Retrieves and Removes the head of the queue.
+          - Returns null if Queue is Empty
+4. remove() - Retrieves and Removes the head of the queue.
+            - Returns Exception(NoSuchElementException) if Queue is Empty.
+5. peek() - Retrieves the value present at the head of the queue but do not remove it.
+          - Returns null if Queue is Empty
+6. element() - Retrieves the value present at the head of the queue but do not remove it.
+             - Returns an Exception(NoSuchElementException) if Queue is Empty.
+
+[Iterable] <-- [Collection] <-- [Queue] <-- (PriorityQueue)
+
+- It's of 2 types, Minimum Priority Queue and Maximum Priority Queue
+- It is based on priority Heap(Min Heap and Max Heap)
+- Elements are ordered according to either Natural Ordering(by default) or by Comparator provided during queue construction time.
+
+Time Complexity of Priority Queue:
+Add and Offer: O(logn)
+Peak: O(1)
+Poll and Remove head element: O(logn)
+Remove  arbitrary element: O(n)
+
+Comparator Vs Comparable
+- Comparator and Comparable both provides a wau to sort the collection of objects
+1. Primitive Collection Sorting Arrays.sort()
+import java.util.Arrays;
+//import java.util.DualPivotQuicksort;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4};
+        Arrays.sort(array);
+    }
+//    Sort in Ascending Order
+//    public static void sort(int[] a) { internal implementation of Arrays.sort()
+//        DualPivotQuicksort.sort(a, 0, 0, a.length);
+//    }
+}
+
+2. Object Collection Sorting
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        Car[] carArray = new Car[3];
+        carArray[0] = new Car("SUV", "petrol");
+        carArray[1] = new Car("Sedan", "diesel");
+        carArray[2] = new Car("Hatchback", "CNG");
+        Arrays.sort(carArray);
+    }
+}
+public class Car {
+    String carName;
+    String carType;
+
+    Car(String name, String type){
+        this.carName = name;
+        this.carType = type;
+    }
+}
+Exception in thread "main" java.lang.ClassCastException: class
+JavaCollections.Part2.ComparableVsComparator.ObjectCollectionSorting.Car cannot be cast to
+class java.lang.Comparable (JavaCollections.Part2.ComparableVsComparator
+
+How to Sort the Object Array?
+With the help of
+a)Comparator
+b) Comparable
+
+a) Comparator -> functional Interface
+int compare(T obj1,T obj2) -> abstract method
+- Sorting Algorithm uses this compare method of Comparator to compare 2 variables and decide
+whether to swap the variables or not.
+- Method returns:
+1: If v1 is bigger than v2
+0: If v1 and v2 is equals
+-1: If v1 is smaller than v2
+Mostly in algorithm, if this method return 1, it swaps the values.
+
+b) Comparable
+int compareTo(T obj2);
+Sorting algorithm uses this compareTo method of Comparator to compare 2 variables and decide whether to
+swap the variables or not.
+
+Deque:
+Stands for Double Ended Queue. Means addition and removal can be done from both the sides of the queue.
+
+Methods available in Deque Interface:
+Methods available in Collection, Queue Interface + Methods available in Deque Interface
+
+Queue: add(), offer(), poll(), remove(), peek(), element()
+
+Deque:
+                    Throw Exception Do Not Throw Exception Throw Exception  Do Not Throw Exception
+Insert Operations       addFirst(e)     offerFirst(e)        addLast(e)      offerLast(e)
+                                     return true/false                       return true/false
+Remove Operations      removeFirst()    pollFirst()         removeLast()     pollLast()
+                                return null if deque empty               return null if deque empty
+Examine Operations      getFirst()      peekFirst()         getLast()        peekLast()
+                                    return null if deque empty           return null if deque empty
+
+Using these methods, we can even use Deque to implement STACK(LIFO) and QUEUE(FIFO) both.
+To use it as Stack, push() and pop() method are available
+push() -> internally calls addFirst()
+pop() -> internally calls removeFirst()
+
+ArrayDeque:
+ArrayDeque(Concrete class), implements the methods which are available in Queue and Deque Interface.
+
+add() - internally calls addLast() method
+offer() - calls offerLast() method
+poll() - calls pollFirst() method
+remove() - calls removeFirst() method
+peek() - calls peekFirst() method
+element() - calls getFirst() method
+
+Time Complexity:
+- Insertion: Amortized(Most of the time or Average) complexity is O(1) except few cases like O(n): when
+queue size threshold reached and try to insert at end or front, then its O(n) bigger size
+- Deletion: O(1)
+- Search: O(1)
+Space Complexity: O(n)
+
+Collection Till Now     isThreadSafe    Maintains Insertion Order   Null Elements allowed   Duplicate elements allowed  Thread safeVersion
+Priority Queue              NO                     NO                       NO                          YES             PriorityBlockingQueue
+ArrayDeque                  NO                     YES                      NO                          YES             ConcurrentLinkedDeque
+
+List:
+List is an ordered collection of an objects, in which duplicate values can be stored.
+- How does it differ from Queue?
+- Queue is also a collection of an objects but in queue insertion/ removal/ access can only happen either at start or end of the queue.
+- While in List, data can be inserted, removed or access from anywhere.
+- In List, user can decide where to insert or access using index(starting from 0)
+
+Methods available in List Interface:
+Methods available in Collection Interface + new Methods defined in List Interface
+
+Methods available in List Interface:
+1. add(int index, E element) - Insert the element at the specific position in the list.
+                             - If there is any element present at that position, it shifts it to its right.
+2. addAll(int index, Collection c) - Insert all the elements of the specified collection into this list at specific index, and shift the element
+                                    at this index and subsequent element to the right.
+3. replaceAll(UnaryOperator op) - replaces each element of the list, with the result of applying the operator the element.
+4. sort(Comparator c) - sort based on the order provided by the comparator.
+5. get(int index) - Return the element at the specified position in the list.
+6. set(int index, Element e) - Replace the element at specified index in the list with the element provided.
+
+7. remove(int index) - Remove the element from the index and shift subsequent elements to the left.
+8. indexOf(Object o) - Returns the index of the first occurrence of the specified element in the list.
+                       -1 if list does not contain the element.
+9. lastIndexOf(Object o) - Returns the index of the last occurrence of the specified element in the list.
+                         -1 if list does not contain the element.
+10. ListIterator<E> listIterator() - listIterator return the object of ListIterator.
+                                    ListIterator(interface) extends from the iterator(interface)
+                                    It has all the method which are available in Iterator and helps us to iterate in forward direction like:
+                                    hasNext() - returns true, if there are more elements in collection
+                                    next() - returns the next element in the iteration
+                                    remove() - removes the last element returned by iterator
+                                    New methods which are introduced in ListIterator, which help to iterate in backward direction:
+                                    boolean hasPrevious() - Returns true, if there are more elements in list while traversing in reverse order. Else throw exception
+                                    E previous() - returns the previous element and move the cursor position backward.
+                                    int nextIndex() - returns the index of the next element.(return the size of the list, if it's at the end of the list)
+                                    int previousIndex() - returns the index of the previous element.(return -1 of the list, if it's at the beginning of the list)
+                                    set(E e) - replaces the last element returned by next or previous with the specified element.
+                                    add(E e) - Insert the specified element immediately before the element that would be returned by the next and after the element that would be returned by the previous.
+                                             - Subsequent call to next() would be unaffected
+11. ListIterator<E> listIterator(int index) - start the iterator from the specific index.
+                                    - specified index indicates the first element that would be returned by an initial call to next.
+12. List<E> subList(int fromIndex, int toIndex) - return the portion of the list
+                                                - fromIndex - Inclusive
+                                                - toIndex - Exclusive
+                                                if fromIndex == toIndex, return sublist is empty
+                                                Any changes in sublist, will change in main list also and vice versa.
+
+Let's Understand these methods with ArrayList: Data structure used here is "Array"
+List.ArrayList.Main.java
+
+Time Complexity:
+1. Insertion:
+O(1): when inserting the element at the end of the array. And space is sufficient
+O(n): when inserting the element at the particular index of the array, then it require shifting of the values.
+O(n): when array size threshold reached and try to insert an element at end, then also its O(n) as values are copied to new array with bigger array size.
+
+2. Deletion: O(n), we have to shift all the values
+
+3. Search: O(1)
+
+Space Complexity: O(n)
+
+ArrayList
+-> isThreadSafe - No
+-> Maintains Insertion Order - Yes
+-> Null Elements Allowed - Yes
+-> Duplicate Elements Allowed - Yes
+-> Thread safeVersion - CopyOnWriteArrayList
+
+LinkedList: Data Structure used is Linked List
+- LinkedList implements both Deque and List Interface
+- Means it supports Deque methods like: "getFirst", "getLast", "removeFirst", "removeLast", etc...
+- It supports index based operations like List: "get(index)", "add(index, object)", etc...
+- It is faster than ArrayList as here we need not do shifting.
+
+Time Complexity
+- Insertion at start and end: O(1)
+- Insertion at particular index: O(n) for lookup of the index + O(1) for adding
+- Search: O(n)
+- Deletion at start and end: O(1)
+- Deletion at specific index: O(n) for the lookup of the index + O(1) for removal
+
+Space Complexity: O(n)
+
+LinkedList
+-> isThreadSafe - No
+-> Maintains Insertion Order - Yes
+-> Null Elements allowed - Yes
+-> Duplicate Elements allowed - Yes
+-> Thread safeVersion - CopyOnWriteArrayList
+
+Vector:
+- Exactly same as arrayList, elements can be access via index.
+- But its Thread safe
+- Puts lock when operation is performed on vector
+- Less efficient than ArrayList as for each operation it does lock/ unlock internally.
+
+Vector:
+-> isThreadSafe - Yes
+-> Maintains Insertion Order - Yes
+-> Null Elements Allowed - Yes
+-> Duplicate Elements allowed - Yes
+-> Thread saferVersion - N/A
+
+Stack:
+- Represent LIFO(Last In First Out) operation
+- Since it extends Vector, its method is also synchronized.
+
+How it's different from Deque : Deque is not thread safe, stack is.
+
+Time Complexity
+Insertion: O(1)
+Deletion: O(1)
+Search: O(n)
+Space Complexity: O(n)
+
+Stack
+-> isThreadSafe - Yes
+-> Maintains Insertion Order - NO
+-> Null Elements Allowed - Yes
+-> Duplicate Elements allowed - Yes
+-> Thread saferVersion - N/A
+
+Map Properties:
+- It's an interface and its implementations are:
+-> HashMap: do not maintain the order
+-> HashTable: Synchronized version of HashMap
+-> LinkedHashMap: Maintains the insertion order.
+-> TreeMap: sorts the data internally.
+- Object that maps key to values.
+- Can not contain duplicate key.
+
+Methods available in Map interface:
+1. size() - returns the number of key-value mapping present
+2. isEmpty() - returns true: if map contains no key-value mapping else false
+3. containsKey(Object key) - if given key is already present in the map return true else false
+4. containsValue(Object value) - return true, if one or more key mapped to the specified value
+5. get(Object key) - returns the value to which this key is mapped
+6. put(K key, V value) - if map:
+                       - already has the same key present: it will overwrite the value now provided
+                       - do not have the key present: it will add new key-value mapping.
+7. remove(Object key) - removes the key-value mapping from the map for the specified key.
+8. putAll(Map<K,V> m) - insert the mappings from the specified map to this map.
+9. clear() - removes all the mappings from the map
+10. Set<K> keySet() - returns the Set view of the Key contained in the Map.
+                    - Set is backed by the Map, so changes in the Map, will be reflected in the Set and vice-versa
+11. Collection<V> values() - returns the collection view of all the values.
+12. Set<Map.Entry<K,V>> entrySet() - returns the set view of the mappings present in the Map
+13. putOfAbsent(K key, V value) - if key already exists return the value already associated, else create a new mapping with this key and value.
+14. getOrDefault(key, defaultValue) - if key not exist or value is null, it returns the default value.
+15. Entry sub-interface- Entry is the sub-interface of the Map.
+                        So it's accessed by Map.Entry
+         Method Name: getKey - return the key
+                    getValue - returns the value
+              int hashCode() - obtains the hashCode value
+     boolean equals(Object o)- used to compare the 2 objects
+
+Map:
+1. Load Factor
+2. Entry<K, V> interface
+3. re-hashing - double the size
+4. performance
+
+Contract between hashCode and Equal Method
+1. obj1 == obj2 then their hash should also be same
+2. If 2 object hash is same it doesn't mean that 2 objects are equal.
+
+
+HashMap:
+- can store null key or value(HashTable do not contains null key or value)
+- HashMap do not maintain the insertion order
+- It's not thread safe(instead use ConcurrentHashMap or HashTable for thread safe HashMap implementation)
+- Default Load Factor is 0.75
+Example:
+- 16(initial size) * 0.75 = 12
+- re-hash - 32 * 0.75 -> double the size
+- It prevents collision pointing towards or creating a new linked list
+- LinkedList is converted into Tree - Balanced Binary Search Tree(Red Black Tree)
+- TreeIfy Threshold = 8 (Default)
+HashMap - O(1) Insertion, Deletion, Searching
+LinkedList - O(n)
+Tree - O(logn)
+
+Note:
+HashMap - not ThreadSafe
+HashTable - ThreadSafe
+
+Time Complexity
+add: amortized O(1)
+remove: Amortized O(1)
+get: Amortized O(1)
+
+LinkedHashMap:
+1. Helps to maintain insertion order or Helps to maintain access order (less frequently used to high frequently used) - order
+2. Similar to HashMap, but also used Double LinkedList.
+map.put(1, "A");
+map.put(21, "B");
+map.put(23, "C");
+map.put(141, "D");
+map.put(25, "E");
+Singly LinkedList
+Entry<K,V>[]
+hash:                          hash:
+key: 1                         key: 21
+value: "A"                     value: "B"
+next: -----------------------> next: null
+hash:                          hash:
+key: 23                        key: 25
+value: "C"                     value: "E"
+next: -----------------------> next: null
+hash:
+key: 141
+value: "D"
+next:null
+
+Entry<K,V>[]
+hash:                          hash:
+key: 1                         key: 21
+value: "A"                     value: "B"
+next: -----------------------> next: null
+null:before<----------------------:before
+after:------------------------->after:
+hash:                          hash:
+key: 23                        key: 25
+value: "C"                     value: "E"
+next: -----------------------> next: null
+before:                        before: --------
+after:                         after: null    |
+hash:
+key: 141
+value: "D"
+next:
+before:
+after:
+
+- Time Complexity is same as of HashMap: Average O(1), Worst O(n)
+-It is not thread safe and there is no thread safe version available for this,
+so we have to explicitly make it this collection thread safe like this:
+Map<Integer, String> map2 = Collections.synchronizedMap(new LinkedHashMap<>());
+
+TreeMap:
+- Map is Sorted according to its natural ordering of its key or by Comparator provided during map creation
+- Its based on Red-Black tree(Self balancing Binary Search Tree)
+- O(logn) time complexity of insert, remove, getOperations.
+
+Methods available in SORTEDMAP interface:
+1. SortedMap<K,V> headMap(K toKey);
+2. SortedMap<K,V> tailMap(K fromKey);
+3. K firstKey();
+4. K lastKey();
+
+Methods Available in NavigableMap Interface:
+NavigableMap<Integer, String> map = new LinkedHashMap<>();
+map.put(1, "A");
+map.put(21, "B");
+map.put(23, "C");
+map.put(141, "D");
+map.put(25, "E");
+
+Methods:
+1. Map.Entry<K, V> lowerEntry(K key) - map.lowerEntry(23)
+                                      output: 21, B
+                                    returns the Entry(Key, value both) node less than 23.
+                                    If no value returns null.
+2. K lowerKey(K key) - map.lowerKey(23)
+                        output: 21
+                    returns the Key only which is less than 23.
+                    If there is no value returns null.
+3. Map.Entry<K, V> floorEntry(K key); - map.floorEntry(24)
+                                        output: 23, C
+                                        map.floorEntry(23)
+                                        output: 23, C
+4. K floorKey(K key); - map.floorKey(24)
+                        output: 23
+                        map.floorKey(23)
+                        output: 24
+                        returns the Key only which is less or equal then key.
+                        If no value returns null
+5. Map.Entry<K,V> ceilingEntry(K key); - map.ceilingEntry(23)
+                                         output: 23,C
+                                         map.ceilingEntry(24)
+                                         output: 25, E
+                                         returns the Entry(Key, value both) which is
+                                         greater or equal than key. If there is no value returns null.
+6. K ceilingKey(K key);     map.ceilingKey(23)
+                            output: 23
+                            map.ceilingKey(24)
+                            output: 25
+                            returns the Key only which is greater or equal than Key.
+                            If there is no value returns null
+7. Map.Entry<K, V> higherEntry(K key); map.higherEntry(23)
+                                        output: 25
+                                        map.higherKey(25)
+                                        output: 141
+                                        returns the Entry(Key, value both) which is greater than key.
+                                        It there is no value returns null
+8. Map.Entry<K,V> firstEntry(); map.firstEntry()
+                                output: 1, A
+                                returns the least entry in the Map
+9. Map.Entry<K,V> lastEntry(); map.lastEntry();
+                               output: 141, D
+                               returns the least entry in the Map
+10. Map.Entry<K,V> pollFirstEntry(); map.pollFirstEntry()
+                                     output: 1, A
+                                     remove and return the least element from the map
+                                     Now 1 would be removed from the map
+11. Map.Entry<K, V> pollLastEntry(); map.pollLastEntry()
+                                     output: 141, D
+                                     remove and return the least element from the map
+                                     Now 141 would be removed from the map.
+12. NavigableMap<K,V> descendingMap(); reverse the map and returns
+13. NavigableSet<K,V> navigableKeySet(); [1, 21, 23, 25, 141]
+(if treeMap is sorted in ascending, keys will come in ascending, else in descending)
+14. NavigableSet<K> descendingKeySet(); [141, 25, 23, 21, 1]
+(if treeMap is sorted in ascending, keys will come in descending, else in ascending)
+15. NavigableMap<K,V> headMap(K toKey, boolean inclusive); map.headMap(23, true) {1=A, 21=B, 23=C}
+16. NavigableMap<K,V> tailMap(K toKey, boolean inclusive); map.tailMap(23, true) {23=C, 25=E, 141=D}
+
+Properties of SET:
+1. Collection of Objects, bit it does not contain duplicate value(any only one "null" value yoy can insert).
+2. Unlike List, Set is not an Ordered Collection, means objects inside set does not follow the insertion order.
+3. Unlike List, Set can not be accessed via index.
+
+Few questions should have come to our mind:
+1. What Data Structure is used in Stack internally(as it does not allow duplicate values)?
+2. As order is not guarantee, then what if we want to Sort the Set collection?
+We will try to find the answer of both the above questions, as we go further...
+
+What all methods SET interface contains:
+All methods which are declared in Collections interface, generally that only is available in SET interface. No new method specific to SET is added.
+
+HashSet:
+- Data structure used: HashMap
+HashMap<E, Object> map = new HashMap<>();
+- During Add method invocation, it stored the element in the key part and in value it stores the dummy object:
+    map.put(element, new Object())
+    what if 2 values get the same hash values? how its handled? what is load factor
+- No guarantee that the order will remain constant.
+- HashSet is not threadSafe. newKeySet method present in ConcurrentHashMap class is used to create threadSafe Set.
+
+Methods in Set:
+1. size()
+2. isEmpty()
+3. contains()
+4. toArray()
+5. add(E element) - returns true, after it insert element in the set only if element is not already present.
+    else if same value is already present, it returns true.
+6. remove(E element)
+7. addAll(Collection c) - performs UNION of 2 Set Collection
+                        set1 = {12, 11, 33, 4}
+                    set2 = {11, 9, 88, 10, 5, 12}
+                set1 + set2 = {12, 11, 33, 4, 9, 88, 10, 5}
+8. removeAll(Collection c) - performs DIFFERENCE of 2 Set Collection. Delete the values from set which are present in another set.
+                        set1 = {12, 11, 33, 4}
+                    set2 = {11, 9, 88, 10, 5, 12}
+                    set1 - set2 ={33, 4}
+9. retainAll(Collection c) - performs Intersection of 2 Set Collection. Returns element which are present in both
+            set1 = {12, 11, 33, 4}
+        set2 = {11, 9, 88, 10, 5, 12 }
+        set1 intersect set2 = {12, 11}
+10. clear()
+11. equals()
+12. stream() and parallelStream()
+13. iterator()
+
+HashSet
+isThreadSafe - NO
+Maintains Insertion Order - NO
+Null Elements allowed - Yes(only one)
+Duplicate elements allowed - NO
+Thread safeVersion - newKeySet method present in ConcurrentHashMap class
+
+Without Thread safe, addition of element while iterating
+It gives ConcurrentModificationException
+
+Time Complexity:
+add: O(1)
+remove: Amortized O(1)
+contains: Amortized O(1)
+
+LinkedHashSet:
+- Internally it uses: LinkedHashMap
+- Maintains the insertion Order of the element
+- It's not thread safe:
+Set<Integer> set = Collections.synchronizedMap(new LinkedHashSet<>());
+
+What is Stream?
+- We can consider Stream as a pipeline, through which our collection elements passes through.
+- While elements passes through pipelines, it performs various operations like sorting, filtering etc.
+- Useful when deals with bulk processing.(can do parallel processing).
+
+
+
+
+
+
+

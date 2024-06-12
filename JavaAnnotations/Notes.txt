@@ -1,0 +1,181 @@
+What is Annotation?
+- It is kind of adding METADATA to the java code.
+- Means, its usage is OPTIONAL.
+- We can use this metadata information at runtime and can add certain logic in our code if wanted
+- How to Read Metadata information? Using Reflection as discussed in previous module
+- Annotations can be applied at anywhere like Classes, Methods, Interface fields, parameters, etc.
+Ex: public interface Bird{
+    public boolean fly();
+}
+Annotation(denoted using @)
+public class Eagle implements Bird{
+    @Override
+    public boolean fly(){
+        return true;
+    }
+}
+
+Types of Annotations
+1. Pre-Defined Annotations-
+i. Used on Annotations
+- @Target
+- @Retention
+- @Documented
+- @Inherited
+- @Repeatable(Java8 feature)
+ii. Used on Java Code Like Classes, Methods etc.
+- @Deprecated
+- @Override
+- @SuppressWarnings
+- @FunctionalInterface
+- @SafeVarargs
+2. Custom Annotations/ User Defined
+@{OurCustomName}
+
+Annotations Used on Java Code
+1. @Deprecated
+- Usage of Deprecated Class or Method or fields, shows you compile time WARNING
+- Deprecation means, no further improvement is happening on this and use new alternative method opr field instead.
+- Can be used over: Constructor, Field, Local Variable, Method, Package, Type(class, interface, enum)
+2. @Override
+- During Compile Time, it would check that the method should be Overridden.
+- And throws compile time error, if it do not match with the parent method.
+- Can be used over: METHODS
+3. @SupressWarnings
+- It will tell Compiler to ignore any compile time warning
+- use it safely, could lead to runtime exception, if any valid warning is IGNORED.
+- Can be used over: Field, Method, Parameter, Constructor, Local Variable, Type(Class or interface or enum)
+4. @FunctionalInterface
+- Restrict Interface to have only 1 abstract method
+- Throws compilation error
+- Can be used over: Type(Class or interface or enum)
+5. @SafeVarargs
+- Used to suppress "Heap Pollution Warning"
+- Used over methods and constructors which have variableArguments
+- Method should be either static or final(i.e. methods which cannot be overridden)
+- In Java9, we can also use it on private methods too.
+
+What is Heap Pollution?
+Object of One Type(Example String), storing the reference of another type Object(Example Integer)
+
+Annotations Used Over Another Annotations(META ANNOTATIONS)
+1. @Target
+- This meta-annotation will restrict, where to use the annotation. Either at method or Constructor or Fields etc.
+Ex:
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
+public @interface SafeVarargs {
+}
+Element Type:
+TYPE,
+FIELD,
+CONSTRUCTOR,
+METHOD,
+PARAMETER,
+LOCAL_VARIABLE,
+ANNOTATION_TYPE,
+PACKAGE,
+TYPE_PARAMETER(allow you to use generic types<T>)
+TYPE_USE(Java 8 feature, allow you to use annotation at places where type you can declare(like List<@annotation String>)
+
+2. @Retention
+- This meta-annotation tells, how ANNOTATION will be stores in Java
+-> RetentionPolicy.SOURCE:- Annotations will be discarded by the compiler itself and if not be recorded in .class file
+-> RetentionPolicy.CLASS:- Annotations will be recorded in .class file but will be ignored by JVM at run time.
+-> RetentionPolicy.RUNTIME:- Annotations will be recorded in .class file + available during run time.
+   Using of reflection can be done.
+Ex1: @Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface Override{
+}
+
+3. @Documented
+- By default, Annotations are ignored when Java Documentation is generated.
+- With this, meta-annotation even Annotations will come in Java Docs.
+NOT DOCUMENTED:-
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface Override{
+}
+public class Eagle implements Bird{
+    @Override
+    public void fly(){
+        return;
+    }
+}
+
+DOCUMENTED
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
+public @interface SafeVarargs{}
+public class Log{
+    @SafeVarargs
+    public static void printLogValues(List<Integer>... logNumbersList){
+        Object[] objectList = logNumbersList;
+        List<String> stringValuesList = new ArrayList<>();
+        stringValuesList.add("Hello");
+        objectList[0] = stringValuesList;
+    }
+}
+
+4. @Inherited
+- By Default, annotations applied on parent class are not available to child classes
+- But it is after this meta-annotation
+- This Meta-Annotation has no effect, if annotation is used other than a class.
+
+5. @Repeatable
+- Allow us to use the same annotation more than one at same place
+Note: We cannot do this before Java8
+Ex: @Repeatable(Categories.class)
+@interface Category{
+    String name;
+}
+@Retention(RetentionPolicy.RUNTIME)
+@interface Categories{
+    Category[] value();
+}
+
+public class Main{
+    public static void main(String[] args){
+        Category[] categoryAnnotationArray = new Eagle().getClass().getAnnotationByType(Category.class);
+        for(Category annotation: categoryAnnotationArray){
+            System.out.println(annotation.name())
+        }
+    }
+}
+
+User Defined or Custom Annotations
+- We can create our own ANNOTATION using keyword "@interface"
+i. Creating an Annotation with empty body:
+public @interface MyCustomAnnotation{
+}
+@MyCustomAnnotation
+public class Eagle{
+    public void fly(){
+    }
+}
+
+ii. Creating an Annotation with method(its more like a field)
+- No Parameter, no body
+- Return Type is restricted to primitive, class, string, enum, annotations and array of these types
+- annotations and array of these types
+public @interface MyCustomAnnotation{
+    String name();
+}
+@MyCustomAnnotation(name="testing")
+public class Eagle{
+    public void fly(){
+    }
+}
+
+iii. Creating an Annotation with an element with Default values:
+- Default value cannot be null
+public @interface MyCustomAnnotation{
+    String name() default "Hello";
+}
+
+@MyCustomAnnotation
+public class Eagle{
+    public void fly(){
+    }
+}

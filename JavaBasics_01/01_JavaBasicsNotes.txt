@@ -1,0 +1,186 @@
+What is Java?
+- Platform independent language
+- Popular OOPS language
+- portable(WORA) -> Write Once, Run Anywhere
+
+Components of Java - JVM, JRE, JDK
+1. JVM(Java Virtual Machine) -> abstract machine(doesn't exist physically)
+Java Program ---Compiler--> ByteCode --JVM--> MachineCode --CPU--> O/P
+Java Program - platform independent
+JVM - Platform dependent
+JVM(JIT Compiler) - Just In Time Compiler
+Java Program(.java) --Compile--> Byte Code(.class)
+
+2. JRE(Java Runtime Environment)
+JVM + Class Libraries(java.Math, java.util...)
+- If we have JRE only, we can run any Java Program but we cannot code.
+Note: You cannot have JVM only, JRE has JVM as its part
+Byte Code <----JVM---- JRE + class libraries
+
+3. JDK(Java Development Kit)
+- programming language (.java)
+- compiler(javac)
+- debugger
+
+JDK = JRE + (Programming Language(.java) + Compiler(javac) + debugger)
+
+JDK, JRE, JVM -> Platform Dependant
+
+Code ---> ByteCode ---> Platform Independent
+
+Download JDK -> Oracle
+java --version
+
+JSE - Java Standard Edition
+JEE - Java Enterprise Edition
+JME - Java Micro Edition/ Mobile Edition
+
+JEE = JSE + API like Transaction API(Rollback Commit), Servlet, JSP, Persistent API
+JEE = large scale apps like e-commerce
+
+JME -> API for mobile applications
+
+First java Program
+1. filename == class name
+2. 1 file only 1 public class
+3. class - variables, methods, constructor, nested class(inner class)
+4. main() is the starting point of the program
+Java Program --Compiler--> ByteCode --> JVM -> calls main()
+
+Compile -> javac filename.java
+Run -> java filename
+
+A obj = new A();
+obj.method();
+
+A.method(); -> instead of creating object we can directly access through static class method
+
+**Interview Question**
+1. Why in Java in a single file we have only 1 public class?
+public class A{
+    public static void main(String[] args){
+        main -> Starting/ Entry point of the program
+    }
+}
+- Main method must be inside public(JVM) class
+- public class name should be same as filename
+2. Why there is only 1 public class in Java?
+- If there were multiple public class, how JVM would know which program to be invoked or where the main() method is present.
+- Generally, in Java, JVM looks for the "public static void main(String[] args)" method to serve as the entry point for a
+standalone Java Application
+
+1. What is Variable?
+Variable is a container which holds a value
+Datatype VariableName = value;
+int a = 32;
+
+Note:-> Java is statically & strongly typed language.
+
+2. Variable Naming Convention
+- Variable name is case-sensitive
+- Variable name can be any legal identifier means can contain Unicode letters and digits.
+- Variable name can start with $, _ and letter.
+- Variable name cannot be JAVA reserved keyword like "new", "class", "while", "for", "interface", "int", "float", etc.
+- Variable should be all small if it contains only one word else camel case should be followed
+- For CONSTANT, variable name should be defined in CAPITAL LETTERS
+
+Types of Variables:
+1. Primitive - char, byte, short, int, long, float, double
+2. Reference/ Non-primitive - class, interface, array, string
+
+1. char - 2 bytes (16 bits)
+        - character representation of ASCII values
+        - Range: 0 to 65535 i.e. '\u0000' to '\uffff'
+   0 - \u0000 -> NUL -> Default value
+   64 - @   97 - a
+   65 - A   98 - b
+   66 - B   65535 - \uffff
+
+2. byte - 1 byte (8 bits)
+        - signed 2nd compliment
+        - Range: -128 to 127
+        - default value is 0
+    Note: Only class member variable is assigned default value not local instance variable.
+
+3. short - 2 bytes (16 bits)
+         - signed 2's compliment
+         - Range: -32768 to 32767
+         - default value is 0
+
+4. int - 4 bytes (32 bits)
+       - signed 2's compliment
+       - Range -2^31 to 2^31 - 1
+       - default value is 0
+
+5. long - 8 bytes (64 bits)
+        - signed 2's compliment
+        - Range: -2^63 to 2^63 - 1
+        - default value is 0
+
+6. float - 32 bit IEEE 754 value, float var = 63.05f
+
+7. double - 64 bit IEEE 754 value, double var = 65.03d
+
+Note:- If in industry we are particular about decimal places do not use double or float. Instead use BigInteger.
+
+8. boolean - 1 bit
+           - True/False
+           - default value: false
+
+Type Conversion:-
+
+1. Widening/ Automatic Conversion
+int var = 10; // 4 bytes
+long varLong = var; // 8 bytes
+
+2. Narrowing/ Downcasting/ Explicit Conversion
+int val = 128;
+byte var2 = (byte) var1;
+print(var2); -> //-128
+Since, range of byte: -128 to 127
+
+3. Promotion
+// -127 to 128
+byte a = 127;
+byte b = 1;
+byte sum = a + b; ---> promotion --> int sum = a + b
+
+Kind of Variables:-
+
+1. Member Variable/ Instance Variable
+public class Employee{
+    int memberVariable;
+}
+Employee e1 = new Employee();
+Employee e2 = new Employee();
+Both have different copies of the member/ instance variables
+
+Reference Data Type - Class, String, Interface, Array
+
+Note: In Java, there is everything pass by value
+But we can achieve the pass by reference(&a in C++) using the reference data type(class, string, interface, array)
+
+Wrapper Class - Autoboxing, Unboxing
+
+Primitive Types(8) - int, char, short, byte, long, float, double, boolean -> Stored in Stack Memory
+Reference Type/ Wrapper Type - Integer, Character, Short, Byte, Long, Float, Double, Boolean
+-> 1. Reference Capability
+   2. Collections - ArrayList, HashMap....
+   3. Work on Reference DataType Objects
+
+// Autoboxing (Primitive to Wrapper Class)
+int a = 10;
+Integer a1 = a;
+
+//Unboxing (Wrapper to Primitive Types)
+Integer x = 20;
+int x1 = x;
+
+Constant Variable
+class Employee{
+    static int empId = 10;
+}
+To make the above as constant
+class Employee{
+    static final int empId = 10; // constant variable
+}

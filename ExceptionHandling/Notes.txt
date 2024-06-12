@@ -1,0 +1,176 @@
+Exception handling
+- It's an event that occurs during the execution of the program.
+- It will disrupt your program normal flow.
+- It creates the exception object, which contain information about the Error like
+    - Its Type Of Exception and Message
+    - Stack Trace etc.
+- Runtime Exception use this Exception Object and find the class which can handle it.
+
+Let's Understand the Exception Hierarchy
+Object --> Throwable --> Error(OutOfMemoryError, StackOverflowError)
+Throwable --> Exception --> Unchecked/Runtime
+Exception --> Checked/CompileTime --> (ClassNotFoundException, InterruptedException,
+IOException[FileNotFound, EOFException, SocketException], SQLException)
+Unchecked/ RunTime --> (ClassCastException, ArithmeticException, IndexOutOfBoundException
+[StringIndexOutOfBoundsException, ArrayOutOfBoundsException], NullPointerException, IllegalArgumentException)
+
+Unchecked/ Runtime Exception:
+These are the exceptions which occurs during runtime and compiler and forcing us to handle them
+public class Main{
+    public static void main(String[] args){
+        method1();
+    }
+    public static void method1(){
+        throw new ArithmeticException();
+    }
+}
+
+1. ClassCastException
+public class Main {
+    public static void main(String[] args) {
+        Object val = 0;
+        System.out.println((String) val);
+    }
+}
+//Exception in thread "main" java.lang.ClassCastException: class java.lang.Integer cannot be cast to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap')
+//at ExceptionHandling.UncheckedException.ClassCastException.Main.main(Main.java:6)
+
+2. ArithmeticException
+public class Main {
+    public static void main(String[] args) {
+        int val = 5/0;
+    }
+}
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at ExceptionHandling.UncheckedException.ArithmeticException.Main.main(Main.java:5)
+
+3. IndexOutOfBoundsException
+public class Main {
+    public static void main(String[] args) {
+        int[] val = new int[2];
+        System.out.println(val[3]);
+    }
+}
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 3 out of bounds for length 2
+	at ExceptionHandling.UncheckedException.IndexOutOfBoundsException.ArrayIndexOutOfBoundsException.Main.main(Main.java:6)
+
+public class Main {
+    public static void main(String[] args) {
+        String val = "heloo";
+        System.out.println(val.charAt(5));
+    }
+}
+//Exception in thread "main" java.lang.StringIndexOutOfBoundsException: Index 5 out of bounds for length 5
+
+Null Pointer Exception
+public class Main {
+    public static void main(String[] args) {
+        String val = null;
+        System.out.println(val.charAt(0));
+    }
+}
+Exception in thread "main" java.lang.NullPointerException: Cannot invoke "String.charAt(int)" because "val" is null
+	at ExceptionHandling.UncheckedException.NullPointerException.Main.main(Main.java:6)
+
+IllegalArgumentException
+public class Main {
+    public static void main(String[] args) {
+        int val = Integer.parseInt("abc");
+    }
+}
+//Exception in thread "main" java.lang.NumberFormatException: For input string: "abc"
+
+Checked/ Compile Time Excpetion
+- Compiler verifies them during the compile time of the code and if not handled properly, code compilation will fail.
+public class Main{
+    public static void main(String[] args){
+        method1();
+    }
+    public static void method1(){
+        throw new ClassNotFoundException();
+    }
+}
+'error': unreported exception ClassNotFoundException, must be caught or declared to be thrown
+throw new ClassNotFoundException();
+
+-> Lets try to handle the Exception using "throws":
+public class Main{
+    public static void main(String[] args){
+        method1();
+    }
+    public static void method1() throws ClassNotFoundException{
+        throw new ClassNotFoundException();
+    }
+}
+throws --> "throws" tells that, this method MIGHT throw this exception(or might not), so please caller
+you handle it appropriately
+--->Caller class has to take care
+public class Main{
+    public static void main(String[] args) throws ClassNotFoundException{
+        method1();
+    }
+    public static void method1() throws ClassNotFoundException{
+        throw new ClassNotFoundException();
+    }
+}
+**throw --> Delegates its work to the Caller i.e. main()
+
+--->Let's try handle the Exception using "try/catch" block
+public class Main{
+    public static void main(String[] args){
+        method();
+    }
+    public static void method(){
+        try{
+            throw new ClassNotFoundException();
+        }
+        catch(ClassNotFoundException exceptionObject){
+            //handle this exception scenario like logging
+            exceptionObject.printStackTrace();
+        }
+    }
+}
+
+Let's talk about how to handle the exception. Using: try, catch, finally, throw, throws
+
+1. Try/Catch
+- Try block specify the code which can throw exception.
+- Try block is followed either by catch block or finally block.
+- Catch block is used to catch all the exception which can be thrown in the try block
+- Multiple Catch block can be used
+- Catch block can only catch exception which can be thrown by try block
+
+2. Try/catch/finally or try/finally block
+- Finally block can be used after try or after catch block
+- Finally block will always get executed, either if you just return from try block or from catch block.
+- At most, we can add only 1 finally block
+- If JVM related issues like out of memory, system shut down or our process if forcefully killed. Then finally
+block do not get executed
+
+Creating Custom/User Defined Exception Class
+public class MyCustomException extends Exception{
+    MyCustomException(String message){
+        super(message);
+    }
+}
+public class Main{
+    public static void main(String[] args){
+        try{
+            method1();
+        }
+        catch(MyCustomException e){
+            //handle it
+        }
+    }
+    public static void method1() throws MyCustomException{
+        throw new MyCustomExperience("some issue arise");
+    }
+}
+-> At last, lets ask ourselves, why we need to handle the Exception
+-> It makes our code clean by separating the error handling code from regular code.
+-> It allows program to recover from the error
+-> It allow us to add more information, which support debugging
+-> Improves security, by hiding the sensitive information.
+
+Disadvantage:->
+- Exception Handling is little expensive, if stack trance is huge and it is not handled or handled at parent class.

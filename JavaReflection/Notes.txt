@@ -1,0 +1,56 @@
+What is Reflection?
+- This is used to examine the classes, methods, fields, interfaces at runtime and also possible to change
+behaviour of the class too.
+For Example:->
+- What all methods present in class
+- What all fields present in the class
+- What is the return type of the method
+- What is the modifier of the class
+- What all interfaces class has implemented
+- Change the values of the public & private fields of the class etc.
+
+How to do Reflection of Classes?
+- To reflect the class we need to get an Object of Class
+
+What is this class Class?
+- Instance pf the class Class represents classes during runtime
+- JVM creates one class object for each and every class which is loaded during runtime
+- This Class object, has meta data information about the particular class like method, fields, constructor etc.
+
+How to get the particular class Class Object?
+- There are 3 Ways:
+1. forName()
+2. .class
+3. getClass()
+
+1. Using forName() method
+//assume that we have one class called Bird
+class Bird{}
+//get the object of class for getting the metadata information of Bird Class
+Class birdClass = Class.forName("Bird");
+
+2. Using .class
+//assume that we have one class called Bird
+class Bird{}
+//get the object of class for getting the metadata information of BirdClass
+Class birdClass = Bird.class;
+
+3. Using getClass() method
+//assume that we have one class called Bird.
+class Bird = {}
+Bird birdObj = new Bird();
+//get the object of Class for getting the metadata information of Bird Class
+Class birdClass = birdObj.getClass();
+
+->Methods available in Class Object, all are get, not set methods
+->The package "java.lang.reflect" provides classes that can be used to access and manipulate the value like fields,
+methods and constructor, etc. and these classes are generally returned by above listed getMethods only.
+
+Reflection of Methods
+Reflection of Fields
+Reflection of Constructor -> This reflection breaks Singleton
+
+Why Reflection is not Encouraged to use?
+- Because it breaks OOPS principle of encapsulation
+- Reflection is slow as it happens at runtime
+

@@ -1,0 +1,111 @@
+Java Memory Management and Garbage Collector
+2 Types of Memory - STACK, HEAP -> Managed by JVM
+Both Stack and Heap Memory are created by JVM & stored in RAM.
+
+Stack Memory:-
+- Store Temporary variables and separate memory block for methods
+- Store Primitive Data Types
+- Store Reference of Heap Objects
+    - Strong reference
+    - Weak reference
+        - Soft Reference
+- Each thread has its own Stack Memory(T1, T2, T3, T4..)
+- Variables within a scope is only visible and as soon as any variable goes out of the scope,
+  it gets deleted from the Stack(in LIFO order)
+- When Stack memory goes full, it throws "java.lang.StackOverFlowError";
+
+Heap Memory
+- Store Objects
+- There is no order of allocating the memory.
+- Garbage Collector is used to delete the unreferenced objects from the heap.
+    - Mark & Sweep Algorithm
+    - Types of Garbage Collector:
+        - Single GC
+        - Parallel GC
+        - Concurrent Mark Sweep
+        - G1
+- Heap Memory is shared with all the elements
+- Heap also contains the String Pool
+- When Heap Memory goes full, it throws "java.lang.OutofMemoryError".
+- Heap Memory is further divided into:
+    - Young Generation(minor GC happens here):
+        - Eden
+        - Survivor
+    - Old/ Tenured Generation(major GC happens here)
+    - Permanent Generation
+System.gc() -> It will not guarantee whether the gc will run or not. It is totally depend upon JVM.
+
+Different Types of reference:
+1. Strong Reference
+Person obj = new Person();
+As gc runs, it will not delete th obj from heap memory as it have strong reference
+
+2. Weak Reference
+WeakReference<Person> weakObj = new WeakReference<Person>(new Person());
+As soon as gc runs, it will delete this object from heap memory.
+
+Soft reference -> types of weak reference
+-> It allows to free up the space, in the heap memory only & only if it is very urgent or
+no space is left.
+
+Person obj1 = new Person();
+1. obj1 = null; -> remove the reference
+2. Person obj2 = new Person();
+          obj1 = obj2;
+
+1. GC invokes Mark and Sweep Algorithm
+obj1, obj2, obj3, obj4, obj5 -> Goes in Eden
+- As obj2 & obj5 are unreferenced objects this allows to delete them from Eden & it sweeps
+obj1, obj3 & obj4 to one of Survivor(S0 or S1)
+- now their age becomes age=1
+- This is minor GC
+
+2. GC gets invoked -> objects are unreferenced - deleted from the memory
+Here GC runs very less periodically
+- This is major GC
+
+- So, as soon as JVM does not need certain class it will remove it from non-Heap/ metaspace
+
+PermJem Vs Metaspace
+PerJem -> Former name of Metaspace
+-> Before Java 7 it was used
+-> Part of Heap
+-> Not expandable
+-> As soon as it gets filled we get out of memory error
+
+Metaspace -> Java 8 onwards
+-> Part of Non-Heap/ Out of Heap Memory
+-> Expandable
+
+Garbage Collector
+-> Mark & Sweep Algorithm
+Mark -> Marks which object to be deleted
+Sweep -> remove those objects from the memory.
+-> Mark & Sweep with Compact Memory
+
+Version of GC
+1. Serial GC
+2. Parallel GC
+3. Concurrent Mark & Sweep
+4. G1 Garbage Collector
+
+1. Serial GC
+- Slow
+- GC is very expensive
+- When GC starts, all application threads will pause -> Disadvantage
+
+2. Parallel GC
+- Multiple thread will be running for GC
+- Still the pause time is there
+- But GC will Run faster
+
+3. Concurrent Mark & Sweep
+- application thread is working
+- along with that GC thread also working
+- So, application threads are not stopping because of GC threads, but it is not 100% guarantee
+by JVM it may depend.
+- No memory compaction happens here
+
+4. G1 Garbage Collector
+- Give 100% surety that application will not stop
+- Bring Memory Compaction

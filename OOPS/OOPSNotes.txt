@@ -1,0 +1,102 @@
+Overview of OOPS
+- OOPS means Object Oriented Programming
+- Here OOPS Object means real world entity like Car, Bike etc
+Procedural Programming Vs OOPS
+1. Procedural Programming -
+- Program is divided into parts called functions
+- Does not provide proper way to hide data gives importance to function & data moved freely
+- Overloading is not possible.
+- Inheritance is not possible
+- Code reusability does not present.
+- Ex: Pascal, C, FORTRAN, etc.
+
+2. OOPS
+- Program is divided into objects
+- Objects provide data hiding, give importance to data.
+- Overloading is possible
+- Inheritance is possible
+- Code reusability is present.
+- Ex: Java, C++, Python, C#, etc.
+
+Objects and Classes
+- Objects are real word entities & has 2 things
+- Properties or State
+- Behaviour or function
+Ex:
+Dog is an Object because it has:
+- Properties like: Age, Breed, Color, etc.
+- Behaviour like: Bark, Sleep, Eat, etc.
+Car is an Object because it has:
+- Properties like: Color, Type, Brand, Weight, etc.
+- Behaviour like: Apply Break, Increase Speed, Drive, etc
+
+-> To create an object, a class in required
+- So Class provides the template or Blueprint from which Object can be created.
+- From one class, we can create multiple Objects.
+- To create a class use keyword "class"
+
+1st Pillar of OOPS - Data Abstraction
+- It hides the internal implementation and shows only essential functionality to the user
+- It can be achieved through Interface(100%) and abstract class(0 to 100%)
+Ex:
+    Car - use only show BREAK pedal, and if we press it, Car Speed will reduce How? This is abstracted to us
+    Cellphone: How call is made is abstracted to us
+Advantages:
+    - Increase security and confidentiality
+    - It simplifies our client code
+
+2nd Pillar of OOPS - Data Encapsulation
+- Encapsulation bundles the data and the code working on that data in a single unit.
+- Also known as Data Hiding
+- Steps to achieve Encapsulation:
+    - Declare variable of a class as private
+    - Provides a public Getter and Setters to modify and view the value of the variables
+- Advantages:
+    - Loosely coupled code
+    - Better access control & security
+
+3rd Pillar of OOPS - Inheritance
+- Capability of a Class to inherit properties from their Parent Class
+- It can inherit both functions and variables, so we don't have to write them again in child classes.
+- Can be achieved using extends keyword or through interface.
+- Types of Inheritance:
+    1. Single Inheritance
+    2. Multilevel Inheritance
+    3. Hierarchical Inheritance
+    4. Multiple Inheritance - through interface we can resolve the diamond problem
+Advantages:
+    - Code reusability
+    - We can achieve Polymorphism using Inheritance
+
+4th Pillar of OOPS - Polymorphism
+- Poly means Many and Morphism means Form
+- A same method behaves differently in different situation.
+Ex:
+    - A person can be father, employee, husband, etc.
+    - Water can be solid, liquid or gas
+- Types of Polymorphism
+    1. Compile Time Polymorphism - Static Polymorphism, Method Overloading
+    2. Run Time Polymorphism - Dynamic Polymorphism, Method Overriding
+
+Object Relationships
+1. Is-a Relationship
+- Achieved through Inheritance
+Ex: Dog is an Animal
+- Inheritance form in is-a relation between its parent and child classes
+2. Has-a Relationship
+- Whenever an Object is used in other classes, its called Has-a Relationship
+- Relationship could be one-one, one-many, many-to-many
+Ex: - School has Students, Bike has Engine
+
+Association: relationship between 2 different objects
+Aggregation(weak relation): Both Objects can survive individually, means ending of one object will not end other.
+Composition(strong relation): Ending of one object will end other object.
+
+Weak Relation - Aggregation
+School 1 -> 4 Rooms
+If 1 Room Destroyed, school will be still remained
+
+Strong Relation - Composition
+School -> Rooms
+If School is destroyed, rooms will be automatically or will result in destruction.
+
